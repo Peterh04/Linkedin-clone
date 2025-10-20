@@ -94,7 +94,7 @@ const Post = forwardRef(({ id, name, description, message, photoUrl }, ref) => {
   const [replies, setReplies] = useState({});
   const replyListeners = useRef([]);
 
-  // 🔁 Post likes
+  // 🔁 Post likes listener
   useEffect(() => {
     if (!id) return;
     const unsub = db
@@ -258,6 +258,28 @@ const Post = forwardRef(({ id, name, description, message, photoUrl }, ref) => {
     setReplyingTo(null);
   };
 
+  // 📤 Web Share API handler
+  const handleShare = async () => {
+    const shareText = `${message}\n\n— ${name}\n\nShared via MyApp`;
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: "Check this post",
+          text: shareText,
+          url: window.location.href,
+        });
+        console.log("Post shared successfully!");
+      } else {
+        // Fallback for browsers that don't support Web Share API
+        const encodedText = encodeURIComponent(shareText);
+        const whatsappUrl = `https://wa.me/?text=${encodedText}`;
+        window.open(whatsappUrl, "_blank");
+      }
+    } catch (error) {
+      console.error("Error sharing:", error);
+    }
+  };
+
   return (
     <div ref={ref} className="post">
       <div className="post_header">
@@ -280,6 +302,7 @@ const Post = forwardRef(({ id, name, description, message, photoUrl }, ref) => {
             color={hasLiked ? "blue" : "gray"}
           />
         </div>
+
         <div onClick={() => setShowComments((v) => !v)}>
           <InputOption
             Icon={ChatOutlinedIcon}
@@ -289,7 +312,12 @@ const Post = forwardRef(({ id, name, description, message, photoUrl }, ref) => {
             color="gray"
           />
         </div>
-        <InputOption Icon={ShareOutlinedIcon} title="Share" color="gray" />
+
+        {/* ✅ Share button using Web Share API */}
+        <div onClick={handleShare}>
+          <InputOption Icon={ShareOutlinedIcon} title="Share" color="gray" />
+        </div>
+
         <InputOption Icon={SendOutlinedIcon} title="Send" color="gray" />
       </div>
 
