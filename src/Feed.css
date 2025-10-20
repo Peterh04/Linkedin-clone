@@ -32,6 +32,8 @@
   margin-left: 10px;
   outline-width: 0;
   font-weight: 600;
+
+  width: 400px;
 }
 
 .feed_input > form > button {

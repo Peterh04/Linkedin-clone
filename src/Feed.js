@@ -115,14 +115,6 @@ function Feed({ recentSearch }) {
               type="text"
               placeholder="What do you want to talk about?"
             />
-            <input
-              type="file"
-              accept="image/*,video/*"
-              onChange={handleFileChange}
-            />
-            <button type="submit" disabled={uploading}>
-              {uploading ? "Posting..." : "Post"}
-            </button>
           </form>
         </div>
 
