@@ -80,7 +80,7 @@ function Feed({ recentSearch }) {
     setInput("");
     setFile(null);
     setPreview(null);
-    setUploading(false);
+   
   };
 
   // ✅ Compute filtered posts
