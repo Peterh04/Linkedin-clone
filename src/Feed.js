@@ -20,7 +20,7 @@ function Feed({ recentSearch }) {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [posts, setPosts] = useState([]);
-  const [uploading, setUploading] = useState(false);
+
 
   useEffect(() => {
     const unsubscribe = db
@@ -38,19 +38,13 @@ function Feed({ recentSearch }) {
     return () => unsubscribe();
   }, []);
 
-  const handleFileChange = (e) => {
-    const selected = e.target.files[0];
-    if (selected) {
-      setFile(selected);
-      setPreview(URL.createObjectURL(selected));
-    }
-  };
+ 
 
   const sendPost = async (e) => {
     e.preventDefault();
     if (!input.trim() && !file) return;
 
-    setUploading(true);
+  
 
     let mediaUrl = "";
     let mediaType = "";
