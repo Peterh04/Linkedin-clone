@@ -91,9 +91,9 @@ function Feed({ recentSearch }) {
 
   // ✅ Compute filtered posts
   const filteredPosts = useMemo(() => {
-    if (!recentSearch.length) return posts; // show all if nothing searched
+    if (!recentSearch.length) return posts; 
 
-    const latestSearch = recentSearch[0].toLowerCase(); // newest search
+    const latestSearch = recentSearch[0].toLowerCase(); 
     const hashtag = `#${latestSearch}`;
 
     return posts.filter(({ data }) =>
